@@ -1,3 +1,4 @@
+import 'package:dicoding_flutter2/main_screen.dart';
 import 'package:flutter/material.dart';
 
 void main() => runApp(const MyApp());
@@ -10,7 +11,8 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: "set 1 2 3",
       theme: ThemeData(fontFamily: 'Oswald'),
-      home: const DetailScreen(),
+      home: const MainScreen(),
+      // home: const DetailScreen(),
       // home: const DetailPage(),
     );
   }
@@ -21,9 +23,7 @@ class DetailScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        body: SafeArea(
-            child: 
-            SingleChildScrollView(
+        body: SingleChildScrollView(
                 child: 
                 Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -38,12 +38,13 @@ class DetailScreen extends StatelessWidget {
           ),
         ),
         Container(
-          margin: const EdgeInsets.only(top: 15.0),
+          margin: const EdgeInsets.symmetric(vertical: 16.0),
           child: const Column(children: <Widget>[
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
                 Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: <Widget>[
                     Icon(Icons.calendar_today),
                     SizedBox(
@@ -77,110 +78,44 @@ class DetailScreen extends StatelessWidget {
         Container(
           margin: EdgeInsets.only(top: 15.0),
           child: 
-          const Text("lorem ipsum copacabana men sana in corporesano", 
+          const Text("lorem ipsum in copacabana men sana in corporesano", 
           textAlign: TextAlign.center,),
         ),
-        Image.network("https://media-cdn.tripadvisor.com/media/photo-m/1280/16/a9/33/43/liburan-di-farmhouse.jpg")
+        Container(
+          margin: EdgeInsets.only(top: 10.0),
+          height: 150,
+          child: 
+            ListView(
+              scrollDirection: Axis.horizontal,
+              children: <Widget>[
+                Padding(padding: const EdgeInsets.all(4.0),
+                child: 
+                ClipRRect(
+                  borderRadius: BorderRadius.circular(10.0),
+                  child: 
+                Image.network("https://media-cdn.tripadvisor.com/media/photo-s/0d/7c/59/70/farmhouse-lembang.jpg"),
+                )
+                ),
+                Padding(padding: const EdgeInsets.all(4.0),
+                child: 
+                ClipRRect(
+                  borderRadius: BorderRadius.circular(10.0),
+                  child: 
+                Image.network("https://media-cdn.tripadvisor.com/media/photo-w/13/f0/22/f6/photo3jpg.jpg"),
+                )
+                ), 
+                Padding(padding: const EdgeInsets.all(4.0),
+                child: 
+                ClipRRect(
+                  borderRadius: BorderRadius.circular(10.0),
+                  child:
+                Image.network("https://media-cdn.tripadvisor.com/media/photo-m/1280/16/a9/33/43/liburan-di-farmhouse.jpg"),
+                )
+                )
+              ],
+            )
+        )
       ],
-    ))));
+    )));
   }
 }
-
-// class DetailPage extends StatefulWidget {
-//   const DetailPage({Key? key}) : super(key: key);
-
-//   @override
-//   State<DetailPage> createState() => _DetailPageState();
-// }
-
-// class _DetailPageState extends State<DetailPage> {
-//   String? pilih;
-//   bool lightOn = false;
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return Scaffold(
-//       body: Row(
-//         children: <Widget>[
-//           const Padding(padding: EdgeInsets.all(25.0)),
-//           Expanded(
-//             child: Container(
-//                 margin: const EdgeInsets.all(25.0),
-//                 height: 150.0,
-//                 width: 350.0,
-//                 decoration: const BoxDecoration(
-//                     color: Colors.black54, shape: BoxShape.rectangle),
-//                 child: Column(
-//                   children: <Widget>[
-//                     Expanded(
-//                       child: Container(
-//                           height: 150.0,
-//                           width: 350.0,
-//                           decoration: const BoxDecoration(
-//                               color: Colors.orangeAccent,
-//                               shape: BoxShape.rectangle),
-//                           child: const Row(children: <Widget>[
-//                             // Text(
-//                             //   "acccc",
-//                             //   // textAlign: TextAlign.center,
-//                             // ),
-//                             // Text(
-//                             //   "bcccc",
-//                             //   // textAlign: TextAlign.center,
-//                             // )
-//                           ])),
-//                     ),
-//                     // const Text("ccccc"),
-//                     Expanded(
-//                       child: DropdownButton<String>(
-//                           items: const <DropdownMenuItem<String>>[
-//                             DropdownMenuItem<String>(
-//                               value: "kepiting asam manis",
-//                               child: Text("kepiting asam manis"),
-//                             ),
-//                             DropdownMenuItem<String>(
-//                               value: "kwetiau goreng",
-//                               child: Text("kwetiau goreng"),
-//                             ),
-//                             DropdownMenuItem<String>(
-//                               value: "nila bakar",
-//                               child: Text("nila bakar"),
-//                             ),
-//                             DropdownMenuItem<String>(
-//                               value: "nasi goreng",
-//                               child: Text("nasi goreng"),
-//                             ),
-//                           ],
-//                           value: pilih,
-//                           hint: const Text("apa aja"),
-//                           onChanged: (String? value) {
-//                             setState(
-//                               () {
-//                                 pilih = value;
-//                               },
-//                             );
-//                           }),
-//                     )
-//                   ],
-//                 )),
-//           ),
-//           Expanded(
-//             child: Switch(
-//                 value: lightOn,
-//                 onChanged: (bool value) {
-//                   setState(() {
-//                     lightOn = value;
-//                   });
-//                   ScaffoldMessenger.of(context).showSnackBar(
-//                     SnackBar(
-//                       content: Text( lightOn ? 'light is on' : 'light is off'),
-//                       duration: const Duration(seconds: 1),
-//                     ));
-//                 }),
-//           )
-//           // const Text("dcccc"),
-//         ],
-//       ),
-//     );
-//   }
-// }
