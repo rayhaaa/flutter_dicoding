@@ -9,9 +9,36 @@ class MainScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Wisata Bandung'),
+        title: 
+        // const Text('Wisata Bandung'),
+        Text('Wisata Bandung. Size: ${MediaQuery.of(context).size.width}'),
       ),
-      body: ListView.builder(
+      body: const HealPlaceList(),
+    );
+  }
+}
+
+class HealPlaceGrid extends StatelessWidget {
+  const HealPlaceGrid({Key ? key}) : super (key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.all(24.0),
+      child: GridView.count(
+        crossAxisCount: 4,
+        children: [],
+      ),
+    );
+  }
+}
+
+class HealPlaceList extends StatelessWidget {
+  const HealPlaceList({Key ? key}) : super (key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return ListView.builder(
         itemBuilder: (context, index) {
           final HealPlace place = healPlaceList[index];
           return InkWell(
@@ -53,7 +80,6 @@ class MainScreen extends StatelessWidget {
           );
         },
         itemCount: healPlaceList.length,
-      ),
-    );
+      );
   }
 }
