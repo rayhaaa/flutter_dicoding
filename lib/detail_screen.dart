@@ -1,124 +1,152 @@
+import 'package:dicoding_flutter2/model/heal_place.dart';
 import 'package:flutter/material.dart';
-
-
-class DetailPage extends StatefulWidget {
-  const DetailPage({Key? key}) : super(key: key);
-
-  @override
-  State<DetailPage> createState() => _DetailPageState();
-}
-
-class _DetailPageState extends State<DetailPage> {
-  String? pilih;
-  bool lightOn = false;
-
+ 
+var informationTextStyle = const TextStyle(fontFamily: 'Oxygen');
+ 
+class DetailScreen extends StatelessWidget {
+  final HealPlace place;
+ 
+  const DetailScreen({Key? key, required this.place}) : super(key: key);
+ 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Row(
-        children: <Widget>[
-          const Padding(padding: EdgeInsets.all(25.0)),
-          Expanded(
-            child: Container(
-                margin: const EdgeInsets.all(25.0),
-                height: 150.0,
-                width: 350.0,
-                decoration: const BoxDecoration(
-                    color: Colors.black54, shape: BoxShape.rectangle),
-                child: Column(
-                  children: <Widget>[
-                    Expanded(
-                      child: Container(
-                          height: 150.0,
-                          width: 350.0,
-                          decoration: const BoxDecoration(
-                              color: Colors.orangeAccent,
-                              shape: BoxShape.rectangle),
-                          child: const Row(children: <Widget>[
-                            // Text(
-                            //   "acccc",
-                            //   // textAlign: TextAlign.center,
-                            // ),
-                            // Text(
-                            //   "bcccc",
-                            //   // textAlign: TextAlign.center,
-                            // )
-                          ])),
+      body: SingleChildScrollView(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: <Widget>[
+            Stack(
+              children: <Widget>[
+                Image.asset(place.imageAsset),
+                SafeArea(
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        CircleAvatar(
+                          backgroundColor: Colors.grey,
+                          child: IconButton(
+                            icon: const Icon(
+                              Icons.arrow_back,
+                              color: Colors.white,
+                            ),
+                            onPressed: () {
+                              Navigator.pop(context);
+                            },
+                          ),
+                        ),
+                        const FavoriteButton(),
+                      ],
                     ),
-                    // const Text("ccccc"),
-                    Expanded(
-                      child: DropdownButton<String>(
-                          items: const <DropdownMenuItem<String>>[
-                            DropdownMenuItem<String>(
-                              value: "kepiting asam manis",
-                              child: Text("kepiting asam manis"),
-                            ),
-                            DropdownMenuItem<String>(
-                              value: "kwetiau goreng",
-                              child: Text("kwetiau goreng"),
-                            ),
-                            DropdownMenuItem<String>(
-                              value: "nila bakar",
-                              child: Text("nila bakar"),
-                            ),
-                            DropdownMenuItem<String>(
-                              value: "nasi goreng",
-                              child: Text("nasi goreng"),
-                            ),
-                          ],
-                          value: pilih,
-                          hint: const Text("apa aja"),
-                          onChanged: (String? value) {
-                            setState(
-                              () {
-                                pilih = value;
-                              },
-                            );
-                          }),
-                    )
-                  ],
-                )),
-          ),
-          Expanded(
-            child: Switch(
-                value: lightOn,
-                onChanged: (bool value) {
-                  setState(() {
-                    lightOn = value;
-                  });
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    SnackBar(
-                      content: Text( lightOn ? 'light is on' : 'light is off'),
-                      duration: const Duration(seconds: 1),
-                    ));
-                }),
-          )
-          // const Text("dcccc"),
-        ],
+                  ),
+                ),
+              ],
+            ),
+            Container(
+              margin: const EdgeInsets.only(top: 16.0),
+              child: Text(
+                place.name,
+                textAlign: TextAlign.center,
+                style: const TextStyle(
+                  fontSize: 30.0,
+                  fontFamily: 'Staatliches',
+                ),
+              ),
+            ),
+            Container(
+              margin: const EdgeInsets.symmetric(vertical: 16.0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: <Widget>[
+                  Column(
+                    children: <Widget>[
+                      const Icon(Icons.calendar_today),
+                      const SizedBox(height: 8.0),
+                      Text(
+                        place.openDays,
+                        style: informationTextStyle,
+                      ),
+                    ],
+                  ),
+                  Column(
+                    children: <Widget>[
+                      const Icon(Icons.access_time),
+                      const SizedBox(height: 8.0),
+                      Text(
+                        place.openTime,
+                        style: informationTextStyle,
+                      ),
+                    ],
+                  ),
+                  Column(
+                    children: <Widget>[
+                      const Icon(Icons.monetization_on),
+                      const SizedBox(height: 8.0),
+                      Text(
+                        place.ticketPrice,
+                        style: informationTextStyle,
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+            ),
+            Container(
+              padding: const EdgeInsets.all(16.0),
+              child: Text(
+                place.description,
+                textAlign: TextAlign.center,
+                style: const TextStyle(
+                  fontSize: 16.0,
+                  fontFamily: 'Oxygen',
+                ),
+              ),
+            ),
+            SizedBox(
+              height: 150,
+              child: ListView(
+                scrollDirection: Axis.horizontal,
+                children: place.imageUrls.map((url) {
+                  return Padding(
+                    padding: const EdgeInsets.all(4.0),
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(10),
+                      child: Image.network(url),
+                    ),
+                  );
+                }).toList(),
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
 }
-
-
-// import 'package:dicoding_flutter2/detail_screen.dart;
-
-
-// class DetailScreen extends StatelessWidget {
-//   @override 
-//   Widget build(BuildContext context) {
-//     return Scaffold(
-//       body: SafeArea(
-//         child: Column(
-//           crossAxisAlignment: CrossAxisAlignment.stretch,
-//           children: <Widget>[
-//             Image.asset('images/farm-house.jpg'),
-//             Container(),
-//             Container(),
-//             Container(),
-//           ],
-//         )
-//       )
-//     );
-//   }
-// }
+ 
+class FavoriteButton extends StatefulWidget {
+  const FavoriteButton({Key? key}) : super(key: key);
+ 
+  @override
+  _FavoriteButtonState createState() => _FavoriteButtonState();
+}
+ 
+class _FavoriteButtonState extends State<FavoriteButton> {
+  bool isFavorite = false;
+ 
+  @override
+  Widget build(BuildContext context) {
+    return IconButton(
+      icon: Icon(
+        isFavorite ? Icons.favorite : Icons.favorite_border,
+        color: Colors.red,
+      ),
+      onPressed: () {
+        setState(() {
+          isFavorite = !isFavorite;
+        });
+      },
+    );
+  }
+}
