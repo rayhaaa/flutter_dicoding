@@ -11,7 +11,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: "set 1 2 3",
       theme: ThemeData(fontFamily: 'Oswald'),
-      home: const MainScreen(),
+      home: MainScreen(),
       // home: const DetailScreen(),
       // home: const DetailPage(),
     );
